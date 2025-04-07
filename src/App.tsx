@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -15,6 +14,7 @@ import Visits from "./pages/Visits";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Landing from "./pages/Landing";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const queryClient = new QueryClient();
@@ -25,12 +25,10 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
 
   if (isLoading) {
-    // You could return a loading spinner here
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
   if (!isAuthenticated) {
-    // Redirect to login but save the location they were trying to access
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -44,6 +42,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Public routes */}
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
