@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, FileText, FilePlus, Calendar, Activity, Pills, ClipboardCheck } from "lucide-react";
+import { ArrowLeft, FileText, FilePlus, Calendar, Activity, Pill, ClipboardCheck } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Mock medical records data
@@ -247,7 +247,7 @@ const PatientMedicalRecord = () => {
               <span>Diagnoses</span>
             </TabsTrigger>
             <TabsTrigger value="medications" className="flex items-center gap-2">
-              <Pills className="h-4 w-4" />
+              <Pill className="h-4 w-4" />
               <span>Medications</span>
             </TabsTrigger>
             <TabsTrigger value="visits" className="flex items-center gap-2">
