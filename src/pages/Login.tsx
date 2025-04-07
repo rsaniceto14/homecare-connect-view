@@ -81,6 +81,41 @@ const Login = () => {
     }
   };
 
+  const handleTestLogin = async () => {
+    setIsLoading(true);
+    form.setValue("email", "test@careconnect.com");
+    form.setValue("password", "password123");
+    
+    try {
+      const success = await login("test@careconnect.com", "password123");
+      
+      if (success) {
+        toast({
+          title: "Welcome to CareConnect!",
+          description: "Test login successful. Redirecting you to the dashboard.",
+        });
+        
+        setTimeout(() => {
+          navigate(from, { replace: true });
+        }, 1000);
+      } else {
+        toast({
+          title: "Test login failed",
+          description: "Please try again or use manual login.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Test login failed",
+        description: "Please try again or use manual login.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleForgotPassword = () => {
     navigate("/forgot-password");
   };
@@ -92,7 +127,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-care-blue-light to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="care-card bg-white animate-fade-in">
+        <div className="care-card bg-white animate-fade-in p-6 rounded-lg shadow-lg">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
               <div className="w-12 h-12 bg-care-blue rounded-full flex items-center justify-center">
@@ -165,13 +200,25 @@ const Login = () => {
                 )}
               />
 
-              <Button 
-                type="submit" 
-                className="w-full h-11 text-base font-medium" 
-                disabled={isLoading}
-              >
-                {isLoading ? "Signing in..." : "Sign in"}
-              </Button>
+              <div className="flex flex-col space-y-3">
+                <Button 
+                  type="submit" 
+                  className="w-full h-11 text-base font-medium" 
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Signing in..." : "Sign in"}
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  variant="outline"
+                  className="w-full h-11 text-base font-medium border-dashed" 
+                  disabled={isLoading}
+                  onClick={handleTestLogin}
+                >
+                  Test Login (One-Click)
+                </Button>
+              </div>
             </form>
           </Form>
 
