@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import Patients from "./pages/Patients";
+import PatientMedicalRecord from "./pages/PatientMedicalRecord";
 import Caregivers from "./pages/Caregivers";
 import Visits from "./pages/Visits";
 import Reports from "./pages/Reports";
@@ -62,6 +63,16 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Patients />
+          </ProtectedRoute>
+        }
+      />
+      
+      {/* Add new route for patient medical records */}
+      <Route
+        path="/patients/:patientId/medical-record"
+        element={
+          <ProtectedRoute>
+            <PatientMedicalRecord />
           </ProtectedRoute>
         }
       />

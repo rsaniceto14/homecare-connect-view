@@ -1,11 +1,12 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Plus, Search, Edit, User } from "lucide-react";
+import { Plus, Search, Edit, User, FileText } from "lucide-react";
 
 const mockPatients = [
   { id: "P001", name: "Sarah Johnson", age: 72, condition: "Diabetes", address: "123 Main St", phone: "(555) 123-4567" },
@@ -17,6 +18,7 @@ const mockPatients = [
 
 const Patients = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   
   const filteredPatients = mockPatients.filter(patient => 
     patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -77,10 +79,21 @@ const Patients = () => {
                         <TableCell className="hidden md:table-cell">{patient.condition}</TableCell>
                         <TableCell className="hidden lg:table-cell">{patient.phone}</TableCell>
                         <TableCell className="text-right">
-                          <Button variant="ghost" size="icon">
-                            <Edit className="h-4 w-4" />
-                            <span className="sr-only">Edit</span>
-                          </Button>
+                          <div className="flex justify-end gap-2">
+                            <Button 
+                              variant="outline" 
+                              size="icon"
+                              onClick={() => navigate(`/patients/${patient.id}/medical-record`)}
+                              title="View Medical Record"
+                            >
+                              <FileText className="h-4 w-4" />
+                              <span className="sr-only">View Medical Record</span>
+                            </Button>
+                            <Button variant="ghost" size="icon" title="Edit Patient">
+                              <Edit className="h-4 w-4" />
+                              <span className="sr-only">Edit</span>
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))
