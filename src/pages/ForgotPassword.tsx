@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, KeyRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -41,18 +42,19 @@ const ForgotPassword = () => {
     setIsLoading(true);
     
     try {
-      // Simulate API call for password reset
+      // Simulate API call - replace with actual password reset request
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
       setIsSubmitted(true);
       toast({
         title: "Reset link sent",
-        description: `We've sent a password reset link to ${data.email}`,
+        description: "Check your email for password reset instructions.",
       });
+      
     } catch (error) {
       toast({
-        title: "An error occurred",
-        description: "Please try again later.",
+        title: "Request failed",
+        description: "There was an error sending the reset link. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -61,28 +63,57 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-care-blue-light flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-care-blue-light to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+        <Button 
+          variant="ghost" 
+          className="mb-6" 
+          onClick={() => navigate("/login")}
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to login
+        </Button>
+        
         <div className="care-card bg-white animate-fade-in">
-          <button
-            type="button"
-            onClick={() => navigate("/login")}
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-care-blue mb-4"
-          >
-            <ArrowLeft size={16} className="mr-1" />
-            Back to login
-          </button>
-
           <div className="text-center mb-6">
+            <div className="flex justify-center mb-4">
+              <div className="w-12 h-12 bg-care-blue rounded-full flex items-center justify-center">
+                <KeyRound className="text-white" size={24} />
+              </div>
+            </div>
             <h1 className="text-2xl font-bold text-gray-900">Reset Password</h1>
-            <p className="text-muted-foreground mt-2">
-              {isSubmitted
-                ? "Check your email for a reset link"
-                : "Enter your email to receive a password reset link"}
-            </p>
+            <p className="text-muted-foreground mt-2">We'll send you a link to reset your password</p>
           </div>
 
-          {!isSubmitted ? (
+          {isSubmitted ? (
+            <div className="py-4">
+              <Alert className="bg-green-50 border-green-200">
+                <AlertTitle className="text-green-800">Check your inbox</AlertTitle>
+                <AlertDescription className="text-green-700">
+                  We've sent a password reset link to <span className="font-medium">{form.getValues().email}</span>.
+                  Please check your email and follow the instructions.
+                </AlertDescription>
+              </Alert>
+              <div className="mt-6 text-center">
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate("/login")}
+                  className="mr-2"
+                >
+                  Return to login
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    form.reset();
+                  }}
+                >
+                  Try another email
+                </Button>
+              </div>
+            </div>
+          ) : (
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -96,8 +127,8 @@ const ForgotPassword = () => {
                           placeholder="name@example.com" 
                           type="email" 
                           {...field} 
-                          autoComplete="email"
                           disabled={isLoading}
+                          className="h-11"
                         />
                       </FormControl>
                       <FormMessage />
@@ -107,32 +138,27 @@ const ForgotPassword = () => {
 
                 <Button 
                   type="submit" 
-                  className="w-full" 
+                  className="w-full h-11" 
                   disabled={isLoading}
                 >
-                  {isLoading ? "Sending..." : "Send reset link"}
+                  {isLoading ? "Sending..." : "Send Reset Link"}
                 </Button>
               </form>
             </Form>
-          ) : (
-            <div className="text-center p-4">
-              <p className="mb-4 text-sm text-muted-foreground">
-                We've sent an email with instructions to reset your password. 
-                Please check your inbox.
-              </p>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  form.reset();
-                  setIsSubmitted(false);
-                }}
-                className="mt-2"
-              >
-                Try another email
-              </Button>
-            </div>
           )}
+
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            <p>
+              Remember your password?{" "}
+              <button 
+                type="button"
+                onClick={() => navigate("/login")}
+                className="text-care-blue hover:underline focus:outline-none" 
+              >
+                Sign in
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,10 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useAuth } from "@/contexts/AuthContext";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -27,9 +29,15 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
   const isMobile = useIsMobile();
+  const { login } = useAuth();
+
+  // Get the page they were trying to visit from location state
+  const from = location.state?.from?.pathname || "/dashboard";
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -43,18 +51,25 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      // Simulate API login - replace with actual authentication
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const success = await login(data.email, data.password);
       
-      toast({
-        title: "Welcome back!",
-        description: "Login successful. Redirecting you to the dashboard.",
-      });
-      
-      // Redirect to dashboard after successful login
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
+      if (success) {
+        toast({
+          title: "Welcome back!",
+          description: "Login successful. Redirecting you to the dashboard.",
+        });
+        
+        // Redirect to dashboard or the page they were trying to visit
+        setTimeout(() => {
+          navigate(from, { replace: true });
+        }, 1000);
+      } else {
+        toast({
+          title: "Login failed",
+          description: "Please check your credentials and try again.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       toast({
         title: "Login failed",
@@ -70,17 +85,26 @@ const Login = () => {
     navigate("/forgot-password");
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <div className="min-h-screen bg-care-blue-light flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-care-blue-light to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="care-card bg-white animate-fade-in">
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <div className="w-12 h-12 bg-care-blue rounded-full flex items-center justify-center">
+                <LogIn className="text-white" size={24} />
+              </div>
+            </div>
             <h1 className="text-2xl font-bold text-gray-900">CareConnect</h1>
             <p className="text-muted-foreground mt-2">Sign in to your account</p>
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
               <FormField
                 control={form.control}
                 name="email"
@@ -94,6 +118,7 @@ const Login = () => {
                         {...field} 
                         autoComplete="email"
                         disabled={isLoading}
+                        className="h-11"
                       />
                     </FormControl>
                     <FormMessage />
@@ -117,13 +142,23 @@ const Login = () => {
                       </button>
                     </div>
                     <FormControl>
-                      <Input 
-                        placeholder="••••••••" 
-                        type="password" 
-                        {...field}
-                        autoComplete="current-password"
-                        disabled={isLoading}
-                      />
+                      <div className="relative">
+                        <Input 
+                          placeholder="••••••••" 
+                          type={showPassword ? "text" : "password"} 
+                          {...field}
+                          autoComplete="current-password"
+                          disabled={isLoading}
+                          className="h-11 pr-10"
+                        />
+                        <button
+                          type="button"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -132,7 +167,7 @@ const Login = () => {
 
               <Button 
                 type="submit" 
-                className="w-full" 
+                className="w-full h-11 text-base font-medium" 
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign in"}
@@ -140,7 +175,7 @@ const Login = () => {
             </form>
           </Form>
 
-          <div className="mt-6 text-center text-sm text-muted-foreground">
+          <div className="mt-8 text-center text-sm text-muted-foreground">
             <p className="mt-2">
               Don't have an account?{" "}
               <button 
@@ -148,7 +183,7 @@ const Login = () => {
                 onClick={() => navigate("/register")}
                 className="text-care-blue hover:underline focus:outline-none" 
               >
-                Contact us
+                Request access
               </button>
             </p>
           </div>
@@ -156,7 +191,7 @@ const Login = () => {
           {isMobile && (
             <div className="mt-8 border-t pt-4">
               <p className="text-xs text-center text-muted-foreground">
-                Optimized for mobile devices
+                Healthcare at your fingertips
               </p>
             </div>
           )}
