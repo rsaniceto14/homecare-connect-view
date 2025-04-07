@@ -8,6 +8,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
+import Patients from "./pages/Patients";
+import Caregivers from "./pages/Caregivers";
+import Visits from "./pages/Visits";
+import Reports from "./pages/Reports";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -48,6 +53,51 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      
+      <Route
+        path="/patients"
+        element={
+          <ProtectedRoute>
+            <Patients />
+          </ProtectedRoute>
+        }
+      />
+      
+      <Route
+        path="/caregivers"
+        element={
+          <ProtectedRoute>
+            <Caregivers />
+          </ProtectedRoute>
+        }
+      />
+      
+      <Route
+        path="/visits"
+        element={
+          <ProtectedRoute>
+            <Visits />
+          </ProtectedRoute>
+        }
+      />
+      
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute>
+            <Reports />
+          </ProtectedRoute>
+        }
+      />
+      
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
           </ProtectedRoute>
         }
       />
