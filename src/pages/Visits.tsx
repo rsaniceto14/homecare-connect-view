@@ -63,17 +63,19 @@ const Visits = () => {
         <div className="grid gap-6 md:grid-cols-[300px_1fr]">
           {/* Calendar card - hidden on smallest screens, shown as overlay on small screens */}
           <div className="hidden sm:block">
-            <Card>
+            <Card className="overflow-hidden h-fit">
               <CardHeader>
                 <CardTitle>Calendar</CardTitle>
               </CardHeader>
               <CardContent>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border pointer-events-auto"
-                />
+                <div className="border rounded-md p-1 bg-white shadow-sm">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md pointer-events-auto"
+                  />
+                </div>
                 <div className="mt-4">
                   <h3 className="font-medium mb-2">Selected Date</h3>
                   <p className="text-sm text-muted-foreground">{date ? format(date, 'PPP') : 'None'}</p>
@@ -113,12 +115,14 @@ const Visits = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="end">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      className="rounded-md border pointer-events-auto"
-                    />
+                    <div className="p-2 border rounded-md bg-white shadow-sm">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        className="rounded-md pointer-events-auto"
+                      />
+                    </div>
                   </PopoverContent>
                 </Popover>
               </CardTitle>
