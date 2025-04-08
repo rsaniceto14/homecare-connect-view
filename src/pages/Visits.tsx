@@ -9,6 +9,7 @@ import { Calendar as CalendarIcon, Clock, Plus, Search } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const mockVisits = [
   { id: "V001", patient: "Sarah Johnson", caregiver: "David Nurse", date: "2025-04-07", time: "09:00 AM", status: "Completed", type: "Routine Check" },
@@ -71,7 +72,7 @@ const Visits = () => {
                   mode="single"
                   selected={date}
                   onSelect={setDate}
-                  className="rounded-md border"
+                  className="rounded-md border pointer-events-auto"
                 />
                 <div className="mt-4">
                   <h3 className="font-medium mb-2">Selected Date</h3>
@@ -104,31 +105,22 @@ const Visits = () => {
               <CardTitle className="flex items-center justify-between">
                 <span>Visit Schedule</span>
                 
-                {/* Calendar button for small screens */}
-                <Sheet>
-                  <SheetTrigger asChild>
+                {/* Calendar popover for small screens */}
+                <Popover>
+                  <PopoverTrigger asChild>
                     <Button variant="outline" size="icon" className="sm:hidden">
                       <CalendarIcon className="h-4 w-4" />
                     </Button>
-                  </SheetTrigger>
-                  <SheetContent side="bottom" className="h-[500px] sm:hidden">
-                    <SheetHeader>
-                      <SheetTitle>Calendar</SheetTitle>
-                    </SheetHeader>
-                    <div className="py-4 flex flex-col items-center">
-                      <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={setDate}
-                        className="rounded-md border"
-                      />
-                      <div className="mt-4 w-full">
-                        <h3 className="font-medium mb-2">Selected Date</h3>
-                        <p className="text-sm text-muted-foreground">{date ? format(date, 'PPP') : 'None'}</p>
-                      </div>
-                    </div>
-                  </SheetContent>
-                </Sheet>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="end">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      className="rounded-md border pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
               </CardTitle>
               
               <div className="flex w-full items-center space-x-2 pt-4">
