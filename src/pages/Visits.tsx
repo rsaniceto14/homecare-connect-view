@@ -8,6 +8,7 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { Calendar as CalendarIcon, Clock, Plus, Search } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const mockVisits = [
   { id: "V001", patient: "Sarah Johnson", caregiver: "David Nurse", date: "2025-04-07", time: "09:00 AM", status: "Completed", type: "Routine Check" },
@@ -36,51 +37,100 @@ const Visits = () => {
             <h1 className="text-2xl font-bold">Visits</h1>
             <p className="text-muted-foreground">Schedule and manage patient visits</p>
           </div>
-          <Button className="shrink-0">
-            <Plus className="mr-2 h-4 w-4" />
-            Schedule Visit
-          </Button>
+          
+          {/* Use Sheet component for mobile-friendly visit scheduling */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="shrink-0">
+                <Plus className="mr-2 h-4 w-4" />
+                Schedule Visit
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Schedule New Visit</SheetTitle>
+              </SheetHeader>
+              <div className="py-4">
+                <p className="text-sm text-muted-foreground mb-4">Fill in the details to schedule a new patient visit.</p>
+                {/* Form fields would go here in a real implementation */}
+                <Button className="w-full mt-4">Save Visit</Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
 
         <div className="grid gap-6 md:grid-cols-[300px_1fr]">
-          <Card>
-            <CardHeader>
-              <CardTitle>Calendar</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="rounded-md border"
-              />
-              <div className="mt-4">
-                <h3 className="font-medium mb-2">Selected Date</h3>
-                <p className="text-sm text-muted-foreground">{date ? format(date, 'PPP') : 'None'}</p>
+          {/* Calendar card - hidden on smallest screens, shown as overlay on small screens */}
+          <div className="hidden sm:block">
+            <Card>
+              <CardHeader>
+                <CardTitle>Calendar</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="rounded-md border"
+                />
                 <div className="mt-4">
-                  <h4 className="text-sm font-medium mb-2">Summary</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Total Visits</span>
-                      <span className="font-medium">5</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Completed</span>
-                      <span className="font-medium">1</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Scheduled</span>
-                      <span className="font-medium">4</span>
+                  <h3 className="font-medium mb-2">Selected Date</h3>
+                  <p className="text-sm text-muted-foreground">{date ? format(date, 'PPP') : 'None'}</p>
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium mb-2">Summary</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Total Visits</span>
+                        <span className="font-medium">5</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Completed</span>
+                        <span className="font-medium">1</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Scheduled</span>
+                        <span className="font-medium">4</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
 
-          <Card>
+          {/* Responsive visits table */}
+          <Card className="col-span-1">
             <CardHeader className="pb-3">
-              <CardTitle>Visit Schedule</CardTitle>
+              <CardTitle className="flex items-center justify-between">
+                <span>Visit Schedule</span>
+                
+                {/* Calendar button for small screens */}
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="icon" className="sm:hidden">
+                      <CalendarIcon className="h-4 w-4" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="bottom" className="h-[500px] sm:hidden">
+                    <SheetHeader>
+                      <SheetTitle>Calendar</SheetTitle>
+                    </SheetHeader>
+                    <div className="py-4 flex flex-col items-center">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        className="rounded-md border"
+                      />
+                      <div className="mt-4 w-full">
+                        <h3 className="font-medium mb-2">Selected Date</h3>
+                        <p className="text-sm text-muted-foreground">{date ? format(date, 'PPP') : 'None'}</p>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </CardTitle>
+              
               <div className="flex w-full items-center space-x-2 pt-4">
                 <div className="relative flex-1">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -95,7 +145,7 @@ const Visits = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="rounded-md border">
+              <div className="rounded-md border overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -103,7 +153,7 @@ const Visits = () => {
                       <TableHead>Patient</TableHead>
                       <TableHead>Caregiver</TableHead>
                       <TableHead className="hidden md:table-cell">Date</TableHead>
-                      <TableHead className="hidden lg:table-cell">Time</TableHead>
+                      <TableHead className="hidden md:table-cell">Time</TableHead>
                       <TableHead className="hidden lg:table-cell">Type</TableHead>
                       <TableHead>Status</TableHead>
                     </TableRow>
@@ -114,14 +164,14 @@ const Visits = () => {
                         <TableRow key={visit.id}>
                           <TableCell className="font-medium">{visit.id}</TableCell>
                           <TableCell>{visit.patient}</TableCell>
-                          <TableCell>{visit.caregiver}</TableCell>
+                          <TableCell className="hidden sm:table-cell">{visit.caregiver}</TableCell>
                           <TableCell className="hidden md:table-cell">
                             <div className="flex items-center">
                               <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground" />
                               {visit.date}
                             </div>
                           </TableCell>
-                          <TableCell className="hidden lg:table-cell">
+                          <TableCell className="hidden md:table-cell">
                             <div className="flex items-center">
                               <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
                               {visit.time}

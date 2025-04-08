@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Plus, Search, Edit, Users } from "lucide-react";
+import { Plus, Search, Edit } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const mockCaregivers = [
   { id: "C001", name: "David Nurse", role: "Registered Nurse", patients: 12, schedule: "Mon-Fri", phone: "(555) 987-6543" },
@@ -32,10 +33,26 @@ const Caregivers = () => {
             <h1 className="text-2xl font-bold">Caregivers</h1>
             <p className="text-muted-foreground">Manage healthcare providers and staff</p>
           </div>
-          <Button className="shrink-0">
-            <Plus className="mr-2 h-4 w-4" />
-            Add Caregiver
-          </Button>
+          
+          {/* Using Sheet for mobile-friendly caregiver addition */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="shrink-0">
+                <Plus className="mr-2 h-4 w-4" />
+                Add Caregiver
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Add New Caregiver</SheetTitle>
+              </SheetHeader>
+              <div className="py-4">
+                <p className="text-sm text-muted-foreground mb-4">Fill in the details to add a new caregiver.</p>
+                {/* Form fields would go here in a real implementation */}
+                <Button className="w-full mt-4">Save Caregiver</Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
 
         <Card>
@@ -55,13 +72,13 @@ const Caregivers = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>ID</TableHead>
+                    <TableHead className="w-[80px]">ID</TableHead>
                     <TableHead>Name</TableHead>
-                    <TableHead>Role</TableHead>
+                    <TableHead className="hidden sm:table-cell">Role</TableHead>
                     <TableHead className="hidden md:table-cell">Patients</TableHead>
                     <TableHead className="hidden lg:table-cell">Schedule</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
@@ -73,7 +90,7 @@ const Caregivers = () => {
                       <TableRow key={caregiver.id}>
                         <TableCell className="font-medium">{caregiver.id}</TableCell>
                         <TableCell>{caregiver.name}</TableCell>
-                        <TableCell>{caregiver.role}</TableCell>
+                        <TableCell className="hidden sm:table-cell">{caregiver.role}</TableCell>
                         <TableCell className="hidden md:table-cell">{caregiver.patients}</TableCell>
                         <TableCell className="hidden lg:table-cell">{caregiver.schedule}</TableCell>
                         <TableCell className="text-right">

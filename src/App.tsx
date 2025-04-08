@@ -115,18 +115,6 @@ const AppRoutes = () => {
         }
       />
       
-      {/* Redirect root to login or dashboard based on auth */}
-      <Route
-        path="/"
-        element={
-          isAuthenticated ? (
-            <Navigate to="/dashboard" replace />
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-      
       {/* 404 route */}
       <Route path="*" element={<NotFound />} />
     </Routes>
