@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -16,6 +17,7 @@ import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
+import BabyCare from "./pages/BabyCare";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 // Create a new QueryClient instance
