@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -111,6 +110,15 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        }
+      />
+      
+      <Route
+        path="/baby-care"
+        element={
+          <ProtectedRoute>
+            <BabyCare />
           </ProtectedRoute>
         }
       />

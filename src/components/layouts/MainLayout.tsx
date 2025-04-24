@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,7 +9,8 @@ import {
   Settings,
   User,
   Users,
-  X
+  X,
+  Baby
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
@@ -28,6 +28,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { title: "Dashboard", icon: Home, href: "/dashboard" },
+  { title: "Baby Care", icon: Baby, href: "/baby-care" },
   { title: "Patients", icon: Users, href: "/patients" },
   { title: "Caregivers", icon: User, href: "/caregivers" },
   { title: "Visits", icon: Calendar, href: "/visits" },
@@ -41,14 +42,12 @@ export function MainLayout({ children }: MainLayoutProps) {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Close sidebar when resizing from mobile to desktop
   useEffect(() => {
     if (!isMobile) {
       setIsSidebarOpen(false);
     }
   }, [isMobile]);
 
-  // Handle logout
   const handleLogout = () => {
     toast({
       title: "Logged out",
@@ -59,7 +58,6 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Mobile overlay */}
       {isMobile && isSidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40"
@@ -67,7 +65,6 @@ export function MainLayout({ children }: MainLayoutProps) {
         />
       )}
 
-      {/* Sidebar */}
       <aside 
         className={`
           ${isMobile 
@@ -78,7 +75,6 @@ export function MainLayout({ children }: MainLayoutProps) {
           bg-white border-r border-border flex flex-col
         `}
       >
-        {/* Logo & Close */}
         <div className="h-16 flex items-center px-4 border-b border-border justify-between">
           <h1 className="font-bold text-xl text-care-blue">CareConnect</h1>
           {isMobile && (
@@ -88,7 +84,6 @@ export function MainLayout({ children }: MainLayoutProps) {
           )}
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-2">
           <ul className="space-y-1">
             {navItems.map((item) => (
@@ -115,7 +110,6 @@ export function MainLayout({ children }: MainLayoutProps) {
           </ul>
         </nav>
 
-        {/* User profile & logout */}
         <div className="p-4 border-t border-border">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-8 h-8 rounded-full bg-care-blue text-white flex items-center justify-center font-semibold">
@@ -138,9 +132,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         </div>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 flex flex-col min-h-screen">
-        {/* Header */}
         <header className="h-16 border-b border-border flex items-center px-4 sticky top-0 bg-background z-10">
           {isMobile && (
             <button 
@@ -151,10 +143,8 @@ export function MainLayout({ children }: MainLayoutProps) {
             </button>
           )}
           <div className="flex-1"></div>
-          {/* Add notification and user menu components here */}
         </header>
 
-        {/* Page content */}
         <div className="flex-1 p-4 md:p-6">
           {children}
         </div>
