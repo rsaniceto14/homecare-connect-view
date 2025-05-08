@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -27,13 +28,13 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { title: "Dashboard", icon: Home, href: "/dashboard" },
-  { title: "Baby Care", icon: Baby, href: "/baby-care" },
-  { title: "Patients", icon: Users, href: "/patients" },
-  { title: "Caregivers", icon: User, href: "/caregivers" },
-  { title: "Visits", icon: Calendar, href: "/visits" },
-  { title: "Reports", icon: ClipboardList, href: "/reports" },
-  { title: "Settings", icon: Settings, href: "/settings" },
+  { title: "Painel", icon: Home, href: "/dashboard" },
+  { title: "Cuidados com Bebê", icon: Baby, href: "/baby-care" },
+  { title: "Pacientes", icon: Users, href: "/patients" },
+  { title: "Cuidadores", icon: User, href: "/caregivers" },
+  { title: "Visitas", icon: Calendar, href: "/visits" },
+  { title: "Relatórios", icon: ClipboardList, href: "/reports" },
+  { title: "Configurações", icon: Settings, href: "/settings" },
 ];
 
 export function MainLayout({ children }: MainLayoutProps) {
@@ -50,8 +51,8 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   const handleLogout = () => {
     toast({
-      title: "Logged out",
-      description: "You have been successfully logged out.",
+      title: "Desconectado",
+      description: "Você foi desconectado com sucesso.",
     });
     setTimeout(() => navigate("/login"), 1000);
   };
@@ -127,7 +128,7 @@ export function MainLayout({ children }: MainLayoutProps) {
             onClick={handleLogout}
           >
             <LogOut size={16} />
-            <span>Log out</span>
+            <span>Sair</span>
           </Button>
         </div>
       </aside>

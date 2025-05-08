@@ -21,8 +21,8 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuth } from "@/contexts/AuthContext";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  email: z.string().email({ message: "Por favor, insira um endereço de e-mail válido" }),
+  password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -55,8 +55,8 @@ const Login = () => {
       
       if (success) {
         toast({
-          title: "Welcome back!",
-          description: "Login successful. Redirecting you to the dashboard.",
+          title: "Bem-vindo de volta!",
+          description: "Login bem-sucedido. Redirecionando para o painel.",
         });
         
         // Redirect to dashboard or the page they were trying to visit
@@ -65,15 +65,15 @@ const Login = () => {
         }, 1000);
       } else {
         toast({
-          title: "Login failed",
-          description: "Please check your credentials and try again.",
+          title: "Falha no login",
+          description: "Por favor, verifique suas credenciais e tente novamente.",
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: "Login failed",
-        description: "Please check your credentials and try again.",
+        title: "Falha no login",
+        description: "Por favor, verifique suas credenciais e tente novamente.",
         variant: "destructive",
       });
     } finally {
@@ -91,8 +91,8 @@ const Login = () => {
       
       if (success) {
         toast({
-          title: "Welcome to CareConnect!",
-          description: "Test login successful. Redirecting you to the dashboard.",
+          title: "Bem-vindo ao CareConnect!",
+          description: "Login de teste bem-sucedido. Redirecionando para o painel.",
         });
         
         setTimeout(() => {
@@ -100,15 +100,15 @@ const Login = () => {
         }, 1000);
       } else {
         toast({
-          title: "Test login failed",
-          description: "Please try again or use manual login.",
+          title: "Falha no login de teste",
+          description: "Por favor, tente novamente ou use o login manual.",
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: "Test login failed",
-        description: "Please try again or use manual login.",
+        title: "Falha no login de teste",
+        description: "Por favor, tente novamente ou use o login manual.",
         variant: "destructive",
       });
     } finally {
@@ -135,7 +135,7 @@ const Login = () => {
               </div>
             </div>
             <h1 className="text-2xl font-bold text-gray-900">CareConnect</h1>
-            <p className="text-muted-foreground mt-2">Sign in to your account</p>
+            <p className="text-muted-foreground mt-2">Entre na sua conta</p>
           </div>
 
           <Form {...form}>
@@ -148,7 +148,7 @@ const Login = () => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input 
-                        placeholder="name@example.com" 
+                        placeholder="nome@exemplo.com" 
                         type="email" 
                         {...field} 
                         autoComplete="email"
@@ -167,13 +167,13 @@ const Login = () => {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center justify-between">
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Senha</FormLabel>
                       <button
                         type="button"
                         onClick={handleForgotPassword}
                         className="text-xs text-care-blue hover:underline focus:outline-none"
                       >
-                        Forgot password?
+                        Esqueceu a senha?
                       </button>
                     </div>
                     <FormControl>
@@ -206,7 +206,7 @@ const Login = () => {
                   className="w-full h-11 text-base font-medium" 
                   disabled={isLoading}
                 >
-                  {isLoading ? "Signing in..." : "Sign in"}
+                  {isLoading ? "Entrando..." : "Entrar"}
                 </Button>
                 
                 <Button 
@@ -216,7 +216,7 @@ const Login = () => {
                   disabled={isLoading}
                   onClick={handleTestLogin}
                 >
-                  Test Login (One-Click)
+                  Login de Teste (Um Clique)
                 </Button>
               </div>
             </form>
@@ -224,13 +224,13 @@ const Login = () => {
 
           <div className="mt-8 text-center text-sm text-muted-foreground">
             <p className="mt-2">
-              Don't have an account?{" "}
+              Não tem uma conta?{" "}
               <button 
                 type="button"
                 onClick={() => navigate("/register")}
                 className="text-care-blue hover:underline focus:outline-none" 
               >
-                Request access
+                Solicitar acesso
               </button>
             </p>
           </div>
@@ -238,7 +238,7 @@ const Login = () => {
           {isMobile && (
             <div className="mt-8 border-t pt-4">
               <p className="text-xs text-center text-muted-foreground">
-                Healthcare at your fingertips
+                Saúde ao seu alcance
               </p>
             </div>
           )}

@@ -10,10 +10,10 @@ import { Plus, Search, Edit, User, FileText } from "lucide-react";
 
 const mockPatients = [
   { id: "P001", name: "Sarah Johnson", age: 72, condition: "Diabetes", address: "123 Main St", phone: "(555) 123-4567" },
-  { id: "P002", name: "Robert Williams", age: 68, condition: "Heart Disease", address: "456 Oak Ave", phone: "(555) 234-5678" },
-  { id: "P003", name: "Michael Brown", age: 81, condition: "Parkinson's", address: "789 Pine Rd", phone: "(555) 345-6789" },
-  { id: "P004", name: "Emily Davis", age: 65, condition: "Arthritis", address: "101 Elm St", phone: "(555) 456-7890" },
-  { id: "P005", name: "James Wilson", age: 79, condition: "COPD", address: "202 Maple Dr", phone: "(555) 567-8901" },
+  { id: "P002", name: "Robert Williams", age: 68, condition: "Doença Cardíaca", address: "456 Oak Ave", phone: "(555) 234-5678" },
+  { id: "P003", name: "Michael Brown", age: 81, condition: "Parkinson", address: "789 Pine Rd", phone: "(555) 345-6789" },
+  { id: "P004", name: "Emily Davis", age: 65, condition: "Artrite", address: "101 Elm St", phone: "(555) 456-7890" },
+  { id: "P005", name: "James Wilson", age: 79, condition: "DPOC", address: "202 Maple Dr", phone: "(555) 567-8901" },
 ];
 
 const Patients = () => {
@@ -31,24 +31,24 @@ const Patients = () => {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold">Patients</h1>
-            <p className="text-muted-foreground">Manage patient information and care plans</p>
+            <h1 className="text-2xl font-bold">Pacientes</h1>
+            <p className="text-muted-foreground">Gerencie informações de pacientes e planos de cuidados</p>
           </div>
           <Button className="shrink-0">
             <Plus className="mr-2 h-4 w-4" />
-            Add Patient
+            Adicionar Paciente
           </Button>
         </div>
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle>Patient Directory</CardTitle>
+            <CardTitle>Diretório de Pacientes</CardTitle>
             <div className="flex w-full items-center space-x-2 pt-4">
               <div className="relative flex-1">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
-                  placeholder="Search patients..."
+                  placeholder="Buscar pacientes..."
                   className="pl-8"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -62,11 +62,11 @@ const Patients = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>ID</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Age</TableHead>
-                    <TableHead className="hidden md:table-cell">Condition</TableHead>
-                    <TableHead className="hidden lg:table-cell">Phone</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead>Nome</TableHead>
+                    <TableHead>Idade</TableHead>
+                    <TableHead className="hidden md:table-cell">Condição</TableHead>
+                    <TableHead className="hidden lg:table-cell">Telefone</TableHead>
+                    <TableHead className="text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -84,14 +84,14 @@ const Patients = () => {
                               variant="outline" 
                               size="icon"
                               onClick={() => navigate(`/patients/${patient.id}/medical-record`)}
-                              title="View Medical Record"
+                              title="Ver Prontuário Médico"
                             >
                               <FileText className="h-4 w-4" />
-                              <span className="sr-only">View Medical Record</span>
+                              <span className="sr-only">Ver Prontuário Médico</span>
                             </Button>
-                            <Button variant="ghost" size="icon" title="Edit Patient">
+                            <Button variant="ghost" size="icon" title="Editar Paciente">
                               <Edit className="h-4 w-4" />
-                              <span className="sr-only">Edit</span>
+                              <span className="sr-only">Editar</span>
                             </Button>
                           </div>
                         </TableCell>
@@ -100,7 +100,7 @@ const Patients = () => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={6} className="h-24 text-center">
-                        No patients found.
+                        Nenhum paciente encontrado.
                       </TableCell>
                     </TableRow>
                   )}

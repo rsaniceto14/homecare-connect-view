@@ -19,29 +19,29 @@ const Landing = () => {
           
           <Menubar className="border-none">
             <MenubarMenu>
-              <MenubarTrigger className="font-medium">About</MenubarTrigger>
+              <MenubarTrigger className="font-medium">Sobre</MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Features</MenubarItem>
-                <MenubarItem>Testimonials</MenubarItem>
-                <MenubarItem>Pricing</MenubarItem>
+                <MenubarItem>Recursos</MenubarItem>
+                <MenubarItem>Depoimentos</MenubarItem>
+                <MenubarItem>Preços</MenubarItem>
               </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-              <MenubarTrigger className="font-medium">Resources</MenubarTrigger>
+              <MenubarTrigger className="font-medium">Recursos</MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Documentation</MenubarItem>
+                <MenubarItem>Documentação</MenubarItem>
                 <MenubarItem>Blog</MenubarItem>
-                <MenubarItem>Support</MenubarItem>
+                <MenubarItem>Suporte</MenubarItem>
               </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-              <MenubarTrigger className="font-medium">Contact</MenubarTrigger>
+              <MenubarTrigger className="font-medium">Contato</MenubarTrigger>
             </MenubarMenu>
             <Button 
               onClick={() => navigate("/login")}
               className="ml-4 bg-care-blue hover:bg-care-blue/90"
             >
-              Access System <ArrowRightCircle className="ml-2 h-4 w-4" />
+              Acessar Sistema <ArrowRightCircle className="ml-2 h-4 w-4" />
             </Button>
           </Menubar>
         </div>
@@ -52,11 +52,11 @@ const Landing = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Home Healthcare Management <span className="text-care-blue">Simplified</span>
+              Gestão de Saúde Domiciliar <span className="text-care-blue">Simplificada</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8">
-              CareConnect provides a comprehensive platform for managing home healthcare services, 
-              patients, caregivers, and visits - all in one place.
+              CareConnect oferece uma plataforma completa para gerenciar serviços de saúde domiciliar,
+              pacientes, cuidadores e visitas - tudo em um só lugar.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
@@ -64,21 +64,21 @@ const Landing = () => {
                 onClick={() => navigate("/login")}
                 className="bg-care-blue hover:bg-care-blue/90"
               >
-                Get Started
+                Começar
               </Button>
               <Button 
                 size="lg" 
                 variant="outline"
                 onClick={() => navigate("/register")}
               >
-                Create Account
+                Criar Conta
               </Button>
             </div>
           </div>
           <div className="flex justify-center">
             <img 
               src="/placeholder.svg" 
-              alt="Healthcare professionals" 
+              alt="Profissionais de saúde" 
               className="rounded-xl shadow-lg max-w-full h-auto" 
             />
           </div>
@@ -88,33 +88,33 @@ const Landing = () => {
       {/* Features Section */}
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Principais Recursos</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <Users className="h-6 w-6 text-care-blue" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Patient Management</h3>
+              <h3 className="text-xl font-semibold mb-3">Gestão de Pacientes</h3>
               <p className="text-gray-600">
-                Easily manage patient information, medical records, and care plans in a single dashboard.
+                Gerencie facilmente informações de pacientes, registros médicos e planos de cuidados em um único painel.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <ShieldCheck className="h-6 w-6 text-care-blue" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Caregiver Coordination</h3>
+              <h3 className="text-xl font-semibold mb-3">Coordenação de Cuidadores</h3>
               <p className="text-gray-600">
-                Schedule and track caregiver visits, ensuring proper care delivery and accountability.
+                Agende e acompanhe visitas de cuidadores, garantindo a prestação adequada de cuidados e responsabilidade.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <ShieldCheck className="h-6 w-6 text-care-blue" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Comprehensive Reporting</h3>
+              <h3 className="text-xl font-semibold mb-3">Relatórios Completos</h3>
               <p className="text-gray-600">
-                Generate detailed reports on patient care, caregiver performance, and business metrics.
+                Gere relatórios detalhados sobre cuidados com pacientes, desempenho de cuidadores e métricas de negócios.
               </p>
             </div>
           </div>
@@ -124,9 +124,9 @@ const Landing = () => {
       {/* CTA Section */}
       <section className="py-16 bg-care-blue text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to transform your home healthcare management?</h2>
+          <h2 className="text-3xl font-bold mb-6">Pronto para transformar sua gestão de saúde domiciliar?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join thousands of healthcare providers who have streamlined their operations with CareConnect.
+            Junte-se a milhares de profissionais de saúde que otimizaram suas operações com o CareConnect.
           </p>
           <Button 
             size="lg" 
@@ -134,7 +134,7 @@ const Landing = () => {
             className="bg-white text-care-blue hover:bg-gray-100"
             onClick={() => navigate("/register")}
           >
-            Start Your Free Trial
+            Inicie seu Período Gratuito
           </Button>
         </div>
       </section>
@@ -148,7 +148,7 @@ const Landing = () => {
               <span className="font-bold text-care-blue">CareConnect</span>
             </div>
             <div className="text-sm text-gray-500">
-              © 2025 CareConnect. All rights reserved.
+              © 2025 CareConnect. Todos os direitos reservados.
             </div>
           </div>
         </div>

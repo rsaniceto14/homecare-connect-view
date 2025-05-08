@@ -20,7 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
+  email: z.string().email({ message: "Por favor, insira um endereço de e-mail válido" }),
 });
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
@@ -47,14 +47,14 @@ const ForgotPassword = () => {
       
       setIsSubmitted(true);
       toast({
-        title: "Reset link sent",
-        description: "Check your email for password reset instructions.",
+        title: "Link de redefinição enviado",
+        description: "Verifique seu e-mail para instruções de redefinição de senha.",
       });
       
     } catch (error) {
       toast({
-        title: "Request failed",
-        description: "There was an error sending the reset link. Please try again.",
+        title: "Falha na solicitação",
+        description: "Houve um erro ao enviar o link de redefinição. Por favor, tente novamente.",
         variant: "destructive",
       });
     } finally {
@@ -71,7 +71,7 @@ const ForgotPassword = () => {
           onClick={() => navigate("/login")}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to login
+          Voltar para o login
         </Button>
         
         <div className="care-card bg-white animate-fade-in">
@@ -81,17 +81,17 @@ const ForgotPassword = () => {
                 <KeyRound className="text-white" size={24} />
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Reset Password</h1>
-            <p className="text-muted-foreground mt-2">We'll send you a link to reset your password</p>
+            <h1 className="text-2xl font-bold text-gray-900">Redefinir Senha</h1>
+            <p className="text-muted-foreground mt-2">Enviaremos um link para redefinir sua senha</p>
           </div>
 
           {isSubmitted ? (
             <div className="py-4">
               <Alert className="bg-green-50 border-green-200">
-                <AlertTitle className="text-green-800">Check your inbox</AlertTitle>
+                <AlertTitle className="text-green-800">Verifique sua caixa de entrada</AlertTitle>
                 <AlertDescription className="text-green-700">
-                  We've sent a password reset link to <span className="font-medium">{form.getValues().email}</span>.
-                  Please check your email and follow the instructions.
+                  Enviamos um link de redefinição de senha para <span className="font-medium">{form.getValues().email}</span>.
+                  Por favor, verifique seu e-mail e siga as instruções.
                 </AlertDescription>
               </Alert>
               <div className="mt-6 text-center">
@@ -100,7 +100,7 @@ const ForgotPassword = () => {
                   onClick={() => navigate("/login")}
                   className="mr-2"
                 >
-                  Return to login
+                  Voltar para o login
                 </Button>
                 <Button 
                   variant="ghost" 
@@ -109,7 +109,7 @@ const ForgotPassword = () => {
                     form.reset();
                   }}
                 >
-                  Try another email
+                  Tentar outro e-mail
                 </Button>
               </div>
             </div>
@@ -124,7 +124,7 @@ const ForgotPassword = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="name@example.com" 
+                          placeholder="nome@exemplo.com" 
                           type="email" 
                           {...field} 
                           disabled={isLoading}
@@ -141,7 +141,7 @@ const ForgotPassword = () => {
                   className="w-full h-11" 
                   disabled={isLoading}
                 >
-                  {isLoading ? "Sending..." : "Send Reset Link"}
+                  {isLoading ? "Enviando..." : "Enviar Link de Redefinição"}
                 </Button>
               </form>
             </Form>
@@ -149,13 +149,13 @@ const ForgotPassword = () => {
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
             <p>
-              Remember your password?{" "}
+              Lembrou sua senha?{" "}
               <button 
                 type="button"
                 onClick={() => navigate("/login")}
                 className="text-care-blue hover:underline focus:outline-none" 
               >
-                Sign in
+                Entrar
               </button>
             </p>
           </div>

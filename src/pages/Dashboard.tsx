@@ -8,49 +8,48 @@ const Dashboard = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back to CareConnect</p>
+          <h1 className="text-2xl font-bold">Painel de Controle</h1>
+          <p className="text-muted-foreground">Bem-vindo de volta ao CareConnect</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
+              <CardTitle className="text-sm font-medium">Total de Pacientes</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">124</div>
-              <p className="text-xs text-muted-foreground">+4 from last week</p>
+              <p className="text-xs text-muted-foreground">+4 desde a semana passada</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Daily Visits</CardTitle>
+              <CardTitle className="text-sm font-medium">Visitas Diárias</CardTitle>
               <CalendarClock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">18</div>
-              <p className="text-xs text-muted-foreground">Today's scheduled visits</p>
+              <p className="text-xs text-muted-foreground">Visitas agendadas para hoje</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Reports</CardTitle>
+              <CardTitle className="text-sm font-medium">Relatórios Pendentes</CardTitle>
               <ClipboardCheck className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">7</div>
-              <p className="text-xs text-muted-foreground">Requires attention</p>
+              <p className="text-xs text-muted-foreground">Requer atenção</p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Calendar Preview Section */}
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle>Atividade Recente</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -58,10 +57,10 @@ const Dashboard = () => {
                 <span className="flex h-2 w-2 translate-y-1 rounded-full bg-care-success" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">
-                    Visit completed for Sarah Johnson
+                    Visita concluída para Sarah Johnson
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Today at 10:35 AM by David Nurse
+                    Hoje às 10:35 por David Enfermeiro
                   </p>
                 </div>
               </div>
@@ -69,10 +68,10 @@ const Dashboard = () => {
                 <span className="flex h-2 w-2 translate-y-1 rounded-full bg-care-warning" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">
-                    Medication update for Robert Williams
+                    Atualização de medicação para Robert Williams
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Today at 9:15 AM by Maria Doctor
+                    Hoje às 9:15 por Maria Doutora
                   </p>
                 </div>
               </div>
@@ -80,10 +79,10 @@ const Dashboard = () => {
                 <span className="flex h-2 w-2 translate-y-1 rounded-full bg-care-danger" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">
-                    Urgent visit needed for Michael Brown
+                    Visita urgente necessária para Michael Brown
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Yesterday at 4:45 PM by Admin
+                    Ontem às 16:45 por Admin
                   </p>
                 </div>
               </div>
